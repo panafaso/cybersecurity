@@ -170,33 +170,27 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
   }
 
   const steps = document.querySelectorAll(".step");
-  const dotNav = d3.select("body").append("div").attr("id", "dot-nav");
-  steps.forEach((_, i) => {
-    dotNav.append("div").attr("class", "dot").attr("data-index", i);
-  });
-  const dots = document.querySelectorAll(".dot");
+const dotNav = d3.select("body").append("div").attr("id", "dot-nav");
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const index = [...steps].indexOf(entry.target);
-        dots.forEach((dot, i) => {
-          dot.classList.toggle("active", i === index);
-        });
-
-        const countryName = entry.target.dataset.country;
-        if (countryName === "Greece-Intro") {
-          d3.select("#country-title").text("Our country on the map...");
-          return;
-        }
-
-        const country = filtered.find(d => d.properties.name === countryName);
-        if (country) {
-          clicked({ stopPropagation: () => {} }, country);
-        }
-      }
-    });
-  }, { threshold: 0.5 });
-
-  steps.forEach(step => observer.observe(step));
+const stepElements = document.querySelectorAll(".step");
+stepElements.forEach((_, i) => {
+  dotNav.append("div").attr("class", "dot").attr("data-index", i);
 });
+
+const dots = document.querySelectorAll(".dot");
+
+// Ενημέρωση ενεργής κουκκίδας
+observer.observe = new Proxy(observer.observe, {
+  apply(target, thisArg, args) {
+    const entry = args[0];
+    const index = [...stepElements].indexOf(entry);
+    if (index >= 0) {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
+    }
+    return target.apply(thisArg, args);
+  }
+});
+
+stepElements.forEach(step => observer.observe(step));
