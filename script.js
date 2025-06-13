@@ -29,7 +29,7 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
   const countriesData = topojson.feature(world, world.objects.countries).features;
   const selectedCountries = [
     "Russia", "Germany", "France", "Japan", "Brazil",
-    "Australia", "India", "United Kingdom", "China", "United States of America"
+    "Australia", "India", "United Kingdom", "China", "United States of America", "Greece"
   ];
   const filtered = countriesData.filter(d => selectedCountries.includes(d.properties.name));
   projection.fitSize([width, height], {type: "FeatureCollection", features: filtered});
@@ -69,55 +69,66 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
   svg.call(zoom);
 
   const countryInfo = {
-  "France": `
-    France enforces a national cybersecurity strategy through ANSSI.
-    It focuses on critical infrastructure protection and public-private cooperation.
-    Cyber threat monitoring and incident response are coordinated by CERT-FR.
-  `,
-  "Germany": `
-    Germany operates under the BSI (Federal Office for Information Security).
-    It runs real-time cyber threat detection and national awareness campaigns.
-    The country also coordinates cybersecurity efforts through the National Cyber Response Centre.
-  `,
+const countryInfo = {
   "United States of America": `
     The U.S. follows the National Cybersecurity Strategy, led by the White House.
-    The Cybersecurity and Infrastructure Security Agency (CISA) handles major cyber defense tasks.
-    It also collaborates with the NSA and FBI for threat intelligence and critical incident handling.
-  `,
-  "Russia": `
-    Russia enforces strict internet controls and domestic cybersecurity policies.
-    It operates its own cyber police and invests in national firewall technologies.
-    The FSB and GosSOPKA are key actors in national cybersecurity defense.
+    The Cybersecurity and Infrastructure Security Agency (CISA) leads major cyber defense efforts.
+    It collaborates with the NSA and FBI on threat intelligence and incident response.
   `,
   "China": `
-    China implements the Golden Shield Project and strict content regulation.
-    It emphasizes internal surveillance and state-controlled data policies.
-    The Cyberspace Administration of China (CAC) leads national cyber operations.
+    China enforces strict content regulation via the Golden Shield Project.
+    It emphasizes internal surveillance and data control.
+    The Cyberspace Administration of China (CAC) coordinates national cyber efforts.
+  `,
+  "Russia": `
+    Russia operates under domestic cybersecurity laws and strict internet governance.
+    The FSB and GosSOPKA oversee cyber defense and threat response.
+    National firewalls and cyber policing play a central role.
   `,
   "India": `
-    India developed a National Cybersecurity Strategy focusing on resilience.
-    CERT-In (Computer Emergency Response Team India) handles incident response.
-    The country promotes capacity building and cooperation via the National Cyber Coordination Centre.
-  `,
-  "United Kingdom": `
-    The UK leads with the National Cyber Security Strategy under the NCSC.
-    It invests in education and public awareness for cyber hygiene.
-    The strategy includes partnerships with private sector and intelligence agencies.
+    India’s National Cybersecurity Strategy focuses on resilience and infrastructure defense.
+    CERT-In leads cyber incident handling and threat advisories.
+    The National Cyber Coordination Centre promotes cross-sector cooperation.
   `,
   "Japan": `
-    Japan prioritizes infrastructure protection, especially for major events like the Olympics.
-    The National center of Incident readiness and Strategy for Cybersecurity (NISC) coordinates national efforts.
-    It also promotes public-private collaboration through the Cybersecurity Strategic Headquarters.
+    Japan prioritizes national infrastructure protection, especially during major events.
+    The NISC (National Center of Incident Readiness and Strategy for Cybersecurity) leads strategy.
+    Coordination occurs via the Cybersecurity Strategic Headquarters.
   `,
   "Brazil": `
-    Brazil focuses on building regional CERTs and enforcing the LGPD data protection law.
-    The Brazilian Army and the CGI.br play a role in cyber policy implementation.
-    The National Cyber Defense Strategy emphasizes critical sector protection.
+    Brazil enforces the LGPD and strengthens regional CERTs.
+    The National Cyber Defense Strategy focuses on critical sectors.
+    The CGI.br and Army play significant cybersecurity roles.
   `,
   "Australia": `
-    Australia applies its Cyber Enhanced Situational Awareness and Response (CESAR) strategy.
-    The Australian Cyber Security Centre (ACSC) leads national efforts and outreach.
-    It promotes cooperation with industry and international partners for threat intelligence.
+    Australia implements the CESAR strategy for situational awareness and cyber response.
+    The ACSC (Australian Cyber Security Centre) leads national coordination.
+    International and industry cooperation is a priority.
+  `,
+  "United Kingdom": `
+    The UK follows the National Cyber Security Strategy led by NCSC.
+    It promotes cyber hygiene through education and public awareness.
+    Strong partnerships exist with industry and intelligence services.
+  `,
+  "France": `
+    France coordinates its cybersecurity policy through ANSSI.
+    CERT-FR monitors incidents and critical infrastructure threats.
+    Public-private collaboration is a key pillar.
+  `,
+  "Germany": `
+    Germany enforces cybersecurity via the BSI (Federal Office for Information Security).
+    The country runs real-time threat detection and awareness campaigns.
+    Coordination happens via the National Cyber Response Centre.
+  `,
+  "Greece": `
+    Greece leads a coordinated cybersecurity policy across several agencies.
+    The National Cybersecurity Authority (under the Ministry of Digital Governance) sets national strategy.
+    GR-CERT handles incidents and technical guidance.
+    The Cyber Crime Division of the Hellenic Police fights digital fraud and threats.
+    The Hellenic Intelligence Service handles high-level cyber risks.
+    ENISA, the EU Agency for Cybersecurity, is headquartered in Crete and supports EU-wide policy.
+
+    📍 Greece was ranked as the 5th most cyber-secure country in Europe in 2023.
   `
 };
   
