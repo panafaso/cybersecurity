@@ -80,21 +80,19 @@ body {
 }
 
 .step[data-country="Intro"] {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  height: 100vh;
+  flex-direction: column;
   background: #020220;
-  position: relative;
-  z-index: 1;
 }
 
 .step[data-country="Intro"] .intro-text {
   max-width: 700px;
   padding: 2rem;
-  margin: 0 auto;
 }
 
 .step[data-country="Intro"] h2 {
@@ -108,3 +106,4 @@ body {
   line-height: 1.6;
   color: white;
 }
+
