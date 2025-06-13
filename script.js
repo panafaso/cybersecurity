@@ -29,11 +29,11 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
 
   const countriesData = topojson.feature(world, world.objects.countries).features;
   const selectedCountries = [
-    "Russia", "Germany", "France", "Japan", "Brazil",
-    "Australia", "India", "United Kingdom", "China", "United States of America", "Greece"
+    "United States of America", "China", "Russia", "India", "Japan",
+    "Brazil", "Australia", "United Kingdom", "France", "Germany", "Greece"
   ];
   const filtered = countriesData.filter(d => selectedCountries.includes(d.properties.name));
-  projection.fitSize([width, height], { type: "FeatureCollection", features: filtered });
+  projection.fitSize([width, height], {type: "FeatureCollection", features: filtered});
 
   g.append("g")
     .attr("fill", "#333")
@@ -68,6 +68,7 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
     });
 
   svg.call(zoom);
+  
   const countryInfo = {
     "United States of America": `
       The U.S. follows the National Cybersecurity Strategy, led by the White House.
@@ -131,7 +132,7 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
     `
   };
 
- const infoBox = d3.select("body").append("div")
+  const infoBox = d3.select("body").append("div")
     .attr("id", "info-box")
     .style("position", "fixed")
     .style("top", "120px")
@@ -169,28 +170,41 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
     );
   }
 
-  const steps = document.querySelectorAll(".step");
-const dotNav = d3.select("body").append("div").attr("id", "dot-nav");
+  const dotNav = d3.select("#dot-nav");
+  const stepElements = document.querySelectorAll(".step");
 
-const stepElements = document.querySelectorAll(".step");
-stepElements.forEach((_, i) => {
-  dotNav.append("div").attr("class", "dot").attr("data-index", i);
+  stepElements.forEach((_, i) => {
+    dotNav.append("div").attr("class", "dot").attr("data-index", i);
+  });
+
+  const dots = document.querySelectorAll(".dot");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const index = [...stepElements].indexOf(entry.target);
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === index);
+        });
+
+        const countryName = entry.target.dataset.country;
+
+        if (countryName === "Greece-Intro") {
+          d3.select("#country-title").text("Our country on the map...");
+          return;
+        }
+
+        d3.select("#map").style("display", "block");
+        d3.select("#country-title").text(countryName);
+
+        const country = filtered.find(d => d.properties.name === countryName);
+        if (country) {
+          clicked({ stopPropagation: () => {} }, country);
+        }
+      }
+    });
+  }, { threshold: 0.5 });
+
+  stepElements.forEach(step => observer.observe(step));
 });
 
-const dots = document.querySelectorAll(".dot");
-
-// Ενημέρωση ενεργής κουκκίδας
-observer.observe = new Proxy(observer.observe, {
-  apply(target, thisArg, args) {
-    const entry = args[0];
-    const index = [...stepElements].indexOf(entry);
-    if (index >= 0) {
-      dots.forEach((dot, i) => {
-        dot.classList.toggle("active", i === index);
-      });
-    }
-    return target.apply(thisArg, args);
-  }
-});
-
-stepElements.forEach(step => observer.observe(step));
