@@ -33,7 +33,7 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
     "Australia", "India", "United Kingdom", "China", "United States of America", "Greece"
   ];
   const filtered = countriesData.filter(d => selectedCountries.includes(d.properties.name));
-  projection.fitSize([width, height], {type: "FeatureCollection", features: filtered});
+  projection.fitSize([width, height], { type: "FeatureCollection", features: filtered });
 
   g.append("g")
     .attr("fill", "#333")
@@ -68,7 +68,6 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
     });
 
   svg.call(zoom);
-
   const countryInfo = {
     "United States of America": `
       The U.S. follows the National Cybersecurity Strategy, led by the White House.
@@ -132,7 +131,7 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
     `
   };
 
-  const infoBox = d3.select("body").append("div")
+ const infoBox = d3.select("body").append("div")
     .attr("id", "info-box")
     .style("position", "fixed")
     .style("top", "120px")
@@ -143,8 +142,7 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
     .style("padding", "10px")
     .style("border", "1px solid #444")
     .style("border-radius", "6px")
-    .style("display", "block")
-    .style("text-align", "justify");
+    .style("display", "block");
 
   function clicked(event, d) {
     const [[x0, y0], [x1, y1]] = path.bounds(d);
@@ -159,7 +157,7 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
 
     const info = countryInfo[countryName] || "No data available.";
     infoBox.style("display", "block").html(
-      `<h3>${countryName}</h3><p>${info}</p>`
+      `<h3>${countryName}</h3><p style='text-align: justify;'>${info}</p>`
     );
 
     svg.transition().duration(750).call(
@@ -171,33 +169,26 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
     );
   }
 
+  const steps = document.querySelectorAll(".step");
+  const dotNav = d3.select("body").append("div").attr("id", "dot-nav");
+  steps.forEach((_, i) => {
+    dotNav.append("div").attr("class", "dot").attr("data-index", i);
+  });
+  const dots = document.querySelectorAll(".dot");
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const countryName = entry.target.dataset.country;
+        const index = [...steps].indexOf(entry.target);
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === index);
+        });
 
+        const countryName = entry.target.dataset.country;
         if (countryName === "Greece-Intro") {
           d3.select("#country-title").text("Our country on the map...");
           return;
         }
-
-        if (countryName === "End") {
-          d3.select("#map").style("display", "none");
-          d3.select("#country-title").text("Credits & Sources");
-          infoBox.style("display", "block").html(`
-            <h3>Sources</h3>
-            <ul>
-              <li>ENISA Reports 2023</li>
-              <li>National Cybersecurity Strategies</li>
-              <li>OECD Digital Security Policy</li>
-            </ul>
-            <p>Made with ❤️ using D3.js and TopoJSON</p>
-          `);
-          return;
-        }
-
-        d3.select("#map").style("display", "block");
-        d3.select("#country-title").text(countryName);
 
         const country = filtered.find(d => d.properties.name === countryName);
         if (country) {
@@ -207,5 +198,5 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
     });
   }, { threshold: 0.5 });
 
-  document.querySelectorAll(".step").forEach(step => observer.observe(step));
+  steps.forEach(step => observer.observe(step));
 });
