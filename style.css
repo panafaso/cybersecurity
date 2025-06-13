@@ -55,3 +55,28 @@ body {
   font-size: 2rem;
   text-align: center;
 }
+
+.dot-nav {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: gray;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: white;
+  opacity: 1;
+}
