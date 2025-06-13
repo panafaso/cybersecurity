@@ -154,7 +154,7 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
       d.properties.name === countryName ? "red" : "#888"
     );
 
-    d3.select("#svg-country-title").text(countryName);
+    label.text(countryName);
 
     const info = countryInfo[countryName] || "No data available.";
     infoBox.style("display", "block").html(
