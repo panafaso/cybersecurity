@@ -181,10 +181,10 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
 
   // Click on dot scrolls to corresponding step
   dots.forEach((dot, i) => {
-    dot.addEventListener("click", () => {
-      stepElements[i].scrollIntoView({ behavior: "smooth", block: "center" });
-    });
+  dot.addEventListener("click", () => {
+    stepElements[i].scrollIntoView({ behavior: "smooth", block: "center" });
   });
+});
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
