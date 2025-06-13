@@ -176,16 +176,41 @@ function clicked(event, d) {
   );
 }
 
-  const steps = document.querySelectorAll(".step");
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const countryName = entry.target.dataset.country;
-        const country = filtered.find(d => d.properties.name === countryName);
-        if (country) clicked({ stopPropagation: () => {} }, country);
-      }
-    });
-  }, { threshold: 0.5 });
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const countryName = entry.target.dataset.country;
 
-  steps.forEach(step => observer.observe(step));
-});
+      // Ειδική μεταχείριση για την εισαγωγική επικεφαλίδα για την Ελλάδα
+      if (countryName === "Greece-Intro") {
+        d3.select("#country-title").text("Our country on the map...");
+        return;
+      }
+
+      // Τελική ενότητα: κρύψε τον χάρτη
+      if (countryName === "End") {
+        d3.select("#map").style("display", "none");
+        d3.select("#country-title").text("Credits & Sources");
+        infoBox.style("display", "block").html(`
+          <h3>Sources</h3>
+          <ul>
+            <li>ENISA Reports 2023</li>
+            <li>National Cybersecurity Strategies</li>
+            <li>OECD Digital Security Policy</li>
+          </ul>
+          <p>Made with ❤️ using D3.js and TopoJSON</p>
+        `);
+        return;
+      }
+
+      // Για κανονικές χώρες (συμπ. Greece)
+      d3.select("#map").style("display", "block");
+      d3.select("#country-title").text(countryName);
+
+      const country = filtered.find(d => d.properties.name === countryName);
+      if (country) {
+        clicked({ stopPropagation: () => {} }, country);
+      }
+    }
+  });
+}, { threshold: 0.5 });
