@@ -16,16 +16,16 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
 
   const g = svg.append("g");
 
-  const label = svg.append("text")
-    .attr("x", width / 2)
-    .attr("y", 40)
-    .attr("text-anchor", "middle")
-    .attr("fill", "white")
-    .attr("font-size", "24px")
-    .attr("font-family", "sans-serif")
-    .attr("font-weight", "bold")
-    .attr("id", "svg-country-title")
-    .text("");
+ // const label = svg.append("text")
+  //  .attr("x", width / 2)
+  //  .attr("y", 40)
+  //  .attr("text-anchor", "middle")
+  //  .attr("fill", "white")
+  //  .attr("font-size", "24px")
+ //   .attr("font-family", "sans-serif")
+ //   .attr("font-weight", "bold")
+ //   .attr("id", "svg-country-title")
+//.text("");
 
   const countriesData = topojson.feature(world, world.objects.countries).features;
   const selectedCountries = [
@@ -144,7 +144,7 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
       d.properties.name === countryName ? "red" : "#888"
     );
 
-    label.text(countryName);
+    //label.text(countryName);
 
     const info = countryInfo[countryName] || "No data available.";
     infoBox.style("display", "block").html(
