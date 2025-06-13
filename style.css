@@ -102,3 +102,22 @@ body {
 .dot.active {
   background-color: white;
 }
+
+/* 🔽 Εδώ βάλε τα δικά σου */
+.intro-text {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.intro-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.intro-text p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: white;
+}
