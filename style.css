@@ -78,3 +78,28 @@ body {
 .dot.active {
   background-color: white;
 }
+
+.step[data-country="Intro"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.step[data-country="Intro"] .intro-text {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.step[data-country="Intro"] h2 {
+  font-size: 2.7rem;
+  margin-bottom: 1.2rem;
+  color: white;
+}
+
+.step[data-country="Intro"] p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: white;
+}
