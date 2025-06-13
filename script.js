@@ -186,10 +186,12 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
 
         const countryName = entry.target.dataset.country;
 
-        if (countryName === "Greece-Intro") {
-          d3.select("#country-title").text("Our country on the map...");
-          return;
-        }
+        if (countryName === "Intro") {
+  d3.select("#map").style("display", "none");
+  d3.select("#country-title").text("");
+  infoBox.style("display", "none");
+  return;
+}
 
         d3.select("#map").style("display", "block");
         d3.select("#country-title").text(countryName);
