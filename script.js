@@ -118,7 +118,7 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
       The Cyber Crime Division of the Hellenic Police fights digital fraud and threats.
       The Hellenic Intelligence Service handles high-level cyber risks.
       ENISA, the EU Agency for Cybersecurity, has its official offices in Athens and Crete, and supports EU-wide policy.
-    📍 In 2023, Greece was ranked as the 5th most cyber-secure country in Europe. In 2025, over 52% of Greek companies increased their cybersecurity budgets during 2024.
+    📍 In 2023, Greece was ranked as the 5th most cyber-secure country in Europe. By 2025, over 52% of Greek companies increased their cybersecurity budgets during 2024.
     `
   };
 
