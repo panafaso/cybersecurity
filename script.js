@@ -143,7 +143,8 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
     .style("padding", "10px")
     .style("border", "1px solid #444")
     .style("border-radius", "6px")
-    .style("display", "block");
+    .style("display", "block")
+    .style("text-align", "justify");
 
   function clicked(event, d) {
     const [[x0, y0], [x1, y1]] = path.bounds(d);
