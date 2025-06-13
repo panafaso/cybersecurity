@@ -68,7 +68,6 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
 
   svg.call(zoom);
 
-  const countryInfo = {
 const countryInfo = {
   "United States of America": `
     The U.S. follows the National Cybersecurity Strategy, led by the White House.
