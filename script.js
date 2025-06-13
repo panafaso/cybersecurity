@@ -188,13 +188,13 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
 
         if (countryName === "Intro") {
   d3.select("#map").style("display", "none");
-  d3.select("#country-title").text("");
+  //d3.select("#country-title").text("");
   infoBox.style("display", "none");
   return;
 }
 
         d3.select("#map").style("display", "block");
-        d3.select("#country-title").text(countryName);
+        //d3.select("#country-title").text(countryName);
 
         const country = filtered.find(d => d.properties.name === countryName);
         if (country) {
