@@ -178,7 +178,12 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
   });
 
   const dots = document.querySelectorAll(".dot");
-
+  dots.forEach((dot, i) => {
+  dot.addEventListener("click", () => {
+    steps[i].scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+});
+  
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
