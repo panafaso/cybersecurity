@@ -187,13 +187,13 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(w
         const countryName = entry.target.dataset.country;
 
   if (countryName === "Intro") {
-  d3.select("#map").style("display", "block"); // εμφάνισε τον χάρτη
-  infoBox.style("display", "none");            // κρύψε το κουτί πληροφοριών
+  d3.select("#map").style("display", "block"); 
+  infoBox.style("display", "none");           
 
-  // όλες οι χώρες σε default γκρι
+
   countries.transition().style("fill", "#888");
 
-  // zoom out (global view)
+  // global view
   svg.transition().duration(750).call(
     zoom.transform,
     d3.zoomIdentity
